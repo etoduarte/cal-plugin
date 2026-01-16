@@ -12,13 +12,28 @@ User provides:
 1. **Subject:** What they want to understand
 2. **Goal:** Why they need to understand it (context for depth)
 
+## File Location
+
+All Cal files live in a `/cal` folder at the project root:
+
+```
+project/
+└── cal/
+    ├── cal.md                      # Main journal
+    └── inside-out/                 # Inside-out explorations
+        ├── [subject-slug].md
+        └── [another-subject].md
+```
+
+Create the folder structure if it doesn't exist.
+
 ## Protocol
 
 ### Phase 1 - Start the Journal
 
-Create a new file at the same level as `cal.md`:
+Create a new file at:
 ```
-inside-out-[subject-slug].md
+/cal/inside-out/[subject-slug].md
 ```
 
 Initialize with:

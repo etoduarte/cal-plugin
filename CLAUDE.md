@@ -24,9 +24,19 @@ Cal does NOT automatically detect or monitor anything. These are **explicit comm
 
 Use them deliberately. Nothing happens automatically.
 
-## Journal Location
+## File Location
 
-Output goes to project `cal.md` (canonical). Falls back to `~/.claude/cal-journal.md` if no project.
+All Cal files live in `/cal` at the project root:
+
+```
+project/
+└── cal/
+    ├── cal.md              # Main journal (deltas, saves, squirrels)
+    └── inside-out/         # Deep understanding explorations
+        └── [topic].md
+```
+
+Create the folder structure if it doesn't exist. Falls back to `~/.claude/cal-journal.md` if no project.
 
 ## Agent Dispatch
 
