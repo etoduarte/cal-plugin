@@ -1,0 +1,42 @@
+{
+  "spec_name": "Cal Payload Simplification",
+  "created": "2026-01-17",
+  "status": "ready",
+  "user_stories": [
+    {
+      "id": "US-1",
+      "title": "Archive Removed Agents",
+      "description": "Create docs/archive/removed-agents.md with full content of all 4 agent templates",
+      "acceptance_criteria": [
+        "docs/archive/removed-agents.md exists",
+        "Contains full content of all 4 agent templates",
+        "Includes metadata about why they were removed"
+      ],
+      "verification": "cat docs/archive/removed-agents.md | head -20"
+    },
+    {
+      "id": "US-2",
+      "title": "Remove Agent Templates",
+      "description": "Delete templates/agents/ folder",
+      "acceptance_criteria": [
+        "templates/agents/ folder deleted",
+        "No references to templates/agents/ in codebase"
+      ],
+      "verification": "ls templates/agents/ 2>&1 | grep -q 'No such file'"
+    },
+    {
+      "id": "US-3",
+      "title": "Remove Web Sync Spec",
+      "description": "Delete docs/specs/cal-sync-mvp.md",
+      "acceptance_criteria": [
+        "docs/specs/cal-sync-mvp.md deleted"
+      ],
+      "verification": "ls docs/specs/cal-sync-mvp.md 2>&1 | grep -q 'No such file'"
+    }
+  ],
+  "out_of_scope": [
+    "Updating commands",
+    "Refactoring /cal:onboard",
+    "Refactoring /cal:pre and /cal:post"
+  ]
+}
