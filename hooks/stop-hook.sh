@@ -93,18 +93,50 @@ if [[ -n "$PROMISE_TEXT" ]] && [[ "$PROMISE_TEXT" = "MEETING ADJOURNED" ]]; then
   exit 0
 fi
 
+# Extract last user message and hash it
+LAST_USER_LINE=$(grep '"role":"human"' "$TRANSCRIPT_PATH" | tail -1)
+CURRENT_USER_HASH=""
+if [[ -n "$LAST_USER_LINE" ]]; then
+  CURRENT_USER_HASH=$(echo "$LAST_USER_LINE" | jq -r '
+    .message.content |
+    map(select(.type == "text")) |
+    map(.text) |
+    join("\n")
+  ' 2>/dev/null | md5 -q 2>/dev/null || echo "$LAST_USER_LINE" | md5sum 2>/dev/null | cut -d' ' -f1 || echo "")
+fi
+
+# Get previously processed user message hash from frontmatter
+LAST_PROCESSED_HASH=$(echo "$FRONTMATTER" | grep '^last_user_hash:' | sed 's/last_user_hash: *//' | sed 's/^"\(.*\)"$/\1/' || echo "")
+
+# If same user message as last iteration, allow natural wait (no forced continuation)
+if [[ -n "$CURRENT_USER_HASH" ]] && [[ "$CURRENT_USER_HASH" = "$LAST_PROCESSED_HASH" ]]; then
+  # No new user input - allow Claude to wait naturally
+  exit 0
+fi
+
 # Not complete - continue meeting
 NEXT_ITERATION=$((ITERATION + 1))
 
-# Update iteration in frontmatter
+# Update iteration and last_user_hash in frontmatter
 TEMP_FILE="${MEETING_STATE_FILE}.tmp.$$"
-if grep -q '^iteration:' "$MEETING_STATE_FILE"; then
-  sed "s/^iteration: .*/iteration: $NEXT_ITERATION/" "$MEETING_STATE_FILE" > "$TEMP_FILE"
+cp "$MEETING_STATE_FILE" "$TEMP_FILE"
+
+# Update or add iteration
+if grep -q '^iteration:' "$TEMP_FILE"; then
+  sed -i '' "s/^iteration: .*/iteration: $NEXT_ITERATION/" "$TEMP_FILE"
 else
-  # Add iteration field if missing (after status line)
-  sed "/^status:/a\\
-iteration: $NEXT_ITERATION" "$MEETING_STATE_FILE" > "$TEMP_FILE"
+  sed -i '' "/^status:/a\\
+iteration: $NEXT_ITERATION" "$TEMP_FILE"
 fi
+
+# Update or add last_user_hash
+if grep -q '^last_user_hash:' "$TEMP_FILE"; then
+  sed -i '' "s/^last_user_hash: .*/last_user_hash: \"$CURRENT_USER_HASH\"/" "$TEMP_FILE"
+else
+  sed -i '' "/^iteration:/a\\
+last_user_hash: \"$CURRENT_USER_HASH\"" "$TEMP_FILE"
+fi
+
 mv "$TEMP_FILE" "$MEETING_STATE_FILE"
 
 # Build continuation prompt
