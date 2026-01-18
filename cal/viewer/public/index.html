@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cal Viewer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>Cal</h1>
+        <div class="search-container">
+          <input type="text" id="search" placeholder="Search..." autocomplete="off">
+          <button id="clear-search" class="hidden">&times;</button>
+        </div>
+      </div>
+      <nav class="tree" id="tree">
+        <div class="loading">Loading...</div>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="content">
+      <header class="content-header" id="content-header">
+        <span class="breadcrumb" id="breadcrumb">Select a file</span>
+      </header>
+
+      <!-- Tabs for meeting participants -->
+      <div class="tabs hidden" id="tabs"></div>
+
+      <!-- Markdown content -->
+      <article class="markdown-body" id="content">
+        <div class="empty-state">
+          <h2>Welcome to Cal Viewer</h2>
+          <p>Select a file from the sidebar to view its contents.</p>
+        </div>
+      </article>
+    </main>
+  </div>
+
+  <div class="toast hidden" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

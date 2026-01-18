@@ -1,0 +1,242 @@
+{
+  "spec_name": "Cal 2.0 Implementation",
+  "created": "2026-01-17",
+  "status": "ready",
+  "phases": [
+    {
+      "id": "phase-0",
+      "name": "Foundation",
+      "prerequisite": null,
+      "stories": ["F-1", "F-2", "F-3", "F-4", "F-5"]
+    },
+    {
+      "id": "phase-1",
+      "name": "Simplification",
+      "prerequisite": "phase-0",
+      "stories": ["S-1", "S-2", "S-3", "S-4", "S-5", "S-6", "S-7"]
+    },
+    {
+      "id": "phase-2",
+      "name": "Core Enhancement",
+      "prerequisite": "phase-1",
+      "stories": ["E-1", "E-2", "E-3", "E-4", "E-5", "E-6"]
+    },
+    {
+      "id": "phase-3",
+      "name": "Utility Polish",
+      "prerequisite": "phase-2",
+      "stories": ["U-1", "U-2", "U-3"]
+    }
+  ],
+  "user_stories": [
+    {
+      "id": "F-1",
+      "title": "Document File Location Strategy",
+      "phase": "phase-0",
+      "acceptance_criteria": [
+        "CLAUDE.md contains Cal File Locations section",
+        "Documents cal/cal.md, cal/inside-out/, cal/meetings/",
+        "Documents .claude/*.local.md for transient state"
+      ]
+    },
+    {
+      "id": "F-2",
+      "title": "Define Journal Entry Schema",
+      "phase": "phase-0",
+      "acceptance_criteria": [
+        "Schema documented in CLAUDE.md",
+        "Format: ## [ISO-8601-DATE] [TYPE] - [TOPIC]",
+        "Types defined: DELTA, SAVE, DECISION, SESSION"
+      ]
+    },
+    {
+      "id": "F-3",
+      "title": "Create Suggested Agent Prompts File",
+      "phase": "phase-0",
+      "acceptance_criteria": [
+        "File exists at cal/agent-prompts.md",
+        "Contains prompt for note-taker",
+        "Contains prompt for sacred-keeper"
+      ]
+    },
+    {
+      "id": "F-4",
+      "title": "Create cal/ Folder Structure Template",
+      "phase": "phase-0",
+      "acceptance_criteria": [
+        "Structure documented in CLAUDE.md",
+        "cal.md template defined"
+      ]
+    },
+    {
+      "id": "F-5",
+      "title": "Define Role Manifest Schema",
+      "phase": "phase-0",
+      "acceptance_criteria": [
+        "Role manifest schema documented in CLAUDE.md",
+        "Format: JSON with role → agent mapping",
+        "Required roles defined: note-taker, sacred-keeper",
+        "Commands reference roles, agents fill roles"
+      ]
+    },
+    {
+      "id": "S-1",
+      "title": "Refactor check.md to Dispatch Only",
+      "phase": "phase-1",
+      "acceptance_criteria": [
+        "check.md contains NO file reading for verification",
+        "check.md dispatches appropriate agent based on context",
+        "check.md captures dispatch result without interpreting"
+      ]
+    },
+    {
+      "id": "S-2",
+      "title": "Merge pre.md into check.md",
+      "phase": "phase-1",
+      "acceptance_criteria": [
+        "check.md handles pre-flight context",
+        "pre.md deleted"
+      ]
+    },
+    {
+      "id": "S-3",
+      "title": "Merge post.md into check.md",
+      "phase": "phase-1",
+      "acceptance_criteria": [
+        "check.md handles post-flight context",
+        "post.md deleted"
+      ]
+    },
+    {
+      "id": "S-4",
+      "title": "Merge review.md into check.md",
+      "phase": "phase-1",
+      "acceptance_criteria": [
+        "check.md handles review context",
+        "review.md deleted"
+      ]
+    },
+    {
+      "id": "S-5",
+      "title": "Fold meet-brief.md into meet.md",
+      "phase": "phase-1",
+      "acceptance_criteria": [
+        "meet.md handles guest briefings",
+        "meet-brief.md deleted"
+      ]
+    },
+    {
+      "id": "S-6",
+      "title": "Fold profile.md into onboard.md",
+      "phase": "phase-1",
+      "acceptance_criteria": [
+        "onboard.md handles user profile setup",
+        "profile.md deleted"
+      ]
+    },
+    {
+      "id": "S-7",
+      "title": "Delete Deprecated Commands",
+      "phase": "phase-1",
+      "acceptance_criteria": [
+        "fly.md deleted",
+        "handoff.md deleted",
+        "help.md deleted",
+        "reset.md deleted"
+      ]
+    },
+    {
+      "id": "E-1",
+      "title": "Polish meet.md",
+      "phase": "phase-2",
+      "acceptance_criteria": [
+        "Participants write to their own files",
+        "Guest briefing flow documented",
+        "Cleanup outputs MEETING ADJOURNED promise"
+      ]
+    },
+    {
+      "id": "E-2",
+      "title": "Implement Context-Aware Check",
+      "phase": "phase-2",
+      "acceptance_criteria": [
+        "check reads cal/ folder artifacts (cal.md, meeting notes, inside-out/)",
+        "Infers work type from artifacts",
+        "Dispatches appropriate verification agent based on role manifest",
+        "Context from files, not conversation history"
+      ]
+    },
+    {
+      "id": "E-3",
+      "title": "Enhance save.md with Schema",
+      "phase": "phase-2",
+      "acceptance_criteria": [
+        "save writes in journal schema format",
+        "Includes ISO-8601 date, TYPE, TOPIC"
+      ]
+    },
+    {
+      "id": "E-4",
+      "title": "Implement Onboard Exploration",
+      "phase": "phase-2",
+      "acceptance_criteria": [
+        "Globs for common patterns",
+        "Reports languages, frameworks, folder structure",
+        "Simple scan, not sophisticated"
+      ]
+    },
+    {
+      "id": "E-5",
+      "title": "Onboard Creates cal/ Structure",
+      "phase": "phase-2",
+      "acceptance_criteria": [
+        "Creates cal/ directory",
+        "Creates cal/cal.md with header",
+        "Creates cal/inside-out/ and cal/meetings/",
+        "Copies agent-prompts.md"
+      ]
+    },
+    {
+      "id": "E-6",
+      "title": "Onboard Suggests Agents",
+      "phase": "phase-2",
+      "acceptance_criteria": [
+        "Presents suggestions with rationale",
+        "Recommends note-taker and sacred-keeper first",
+        "Points to agent-prompts.md"
+      ]
+    },
+    {
+      "id": "U-1",
+      "title": "Polish delta Utility",
+      "phase": "phase-3",
+      "acceptance_criteria": [
+        "Writes to cal.md in journal schema",
+        "Uses DELTA type",
+        "Captures BELIEVED/ACTUAL/DELTA format"
+      ]
+    },
+    {
+      "id": "U-2",
+      "title": "Polish squirrel Utility",
+      "phase": "phase-3",
+      "acceptance_criteria": [
+        "Writes to cal.md in journal schema",
+        "Captures what was interrupted"
+      ]
+    },
+    {
+      "id": "U-3",
+      "title": "Polish inside-out Utility",
+      "phase": "phase-3",
+      "acceptance_criteria": [
+        "Writes artifacts to cal/inside-out/",
+        "Documents accordion pattern",
+        "Produces handoff-ready output"
+      ]
+    }
+  ],
+  "out_of_scope": [
+    "Lisa/Ralph loop plugins"
+  ]
+}

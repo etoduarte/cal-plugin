@@ -190,7 +190,34 @@ When exploration is complete:
 
 ### Phase 4 - Handoff
 
-Use `/cal:handoff [recipient]` to create structured handoff for next phase.
+Create handoff-ready output in `synthesis.md`:
+
+```markdown
+# Synthesis: [Topic]
+
+**Explored:** [DATE]
+**Lenses:** [List of agents that participated]
+
+## Executive Summary
+[2-3 sentence essence for someone who wasn't in the exploration]
+
+## Key Findings
+1. [Finding with evidence]
+2. [Finding with evidence]
+
+## Deltas Discovered
+- [Important assumption corrections]
+
+## Recommendations
+1. [Actionable recommendation]
+2. [Actionable recommendation]
+
+## Open Questions
+- [Questions that emerged but weren't resolved]
+
+## Handoff Context
+[What the next agent/phase needs to know to continue]
+```
 
 ---
 

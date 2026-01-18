@@ -1,76 +1,122 @@
 ---
 description: "Context preservation"
+argument-hint: "[type] [content]"
 ---
 
 # Save - Context Preservation
 
 **Trigger:** `/cal:save [type] [content]`
 
-**Purpose:** Preserve context to cal.md. Merges journal, aha, listen, and session save.
+**Purpose:** Preserve context to `cal/cal.md` using the journal entry schema.
 
 ## Usage
 
 ```bash
-# Quick entries
+# Quick entries (uses SAVE type)
 /cal:save "decision to use X over Y"
-/cal:save aha "cache scope should match data ownership"
+
+# Explicit types
 /cal:save delta "BELIEVED: X, ACTUAL: Y"
-/cal:save pattern "user repeats when I miss things"
+/cal:save decision "chose snapshot architecture for SSC-R1"
+/cal:save session  # Full context dump
 
-# Session save (before context compression)
-/cal:save session
-/cal:save session "switching to different task"
-
-# Start listening mode (lower threshold, session summary at end)
-/cal:save listen "brainstorm topic"
-/cal:save listen off
+# With topic
+/cal:save delta auth "tokens expire after 1 hour not 24"
 ```
 
-## Entry Types
+## Journal Entry Schema
 
-| Type | Purpose | cal.md Section |
-|------|---------|----------------|
-| (default) | Quick observation | General |
-| `aha` | Insight/realization | AHA Moments |
-| `delta` | Wrong assumption | Deltas |
-| `pattern` | User behavior | User Patterns |
-| `decision` | Choice made | Decisions |
-| `memory` | Thing to remember | Memories |
-| `session` | Full state dump | Session Saves |
-| `listen` | Start/stop active listening | - |
+All entries follow this format:
+
+```markdown
+## [ISO-8601-DATE] [TYPE] - [TOPIC]
+
+[Content]
+```
+
+### Types
+
+| Type | When to Use | Format |
+|------|-------------|--------|
+| `SAVE` | General context preservation | Free text |
+| `DELTA` | Wrong assumption surfaced | BELIEVED/ACTUAL/DELTA |
+| `DECISION` | Choice made with rationale | Choice + rationale |
+| `SESSION` | Full state dump before context loss | Structured template |
+
+### Examples
+
+```markdown
+## 2026-01-17 SAVE - Auth implementation
+
+Completed OAuth flow integration with Google. Token refresh handled in middleware.
+
+---
+
+## 2026-01-17 DELTA - Database schema
+
+BELIEVED: block_config column exists
+ACTUAL: Column was never created
+DELTA: Always verify schema before writing queries
+
+---
+
+## 2026-01-17 DECISION - Architecture
+
+Chose snapshot-based architecture (SSC-R1) over entity-based.
+Rationale: Snapshots provide immutable history, entities derive at runtime.
+Revisit-if: Performance issues with large snapshot counts.
+
+---
+
+## 2026-01-17 SESSION - Context preservation
+
+**Working on:** Cal 2.0 implementation
+**Branch:** main
+**Uncommitted:** Yes (Phase 1 complete)
+
+### This Session
+- Completed Phase 0: Foundation (F-1 through F-5)
+- Completed Phase 1: Simplification (S-1 through S-7)
+- Commands reduced from 16 to 7
+
+### Resume With
+- Start Phase 2: Core Enhancement
+- Next: E-1 Polish meet.md
+
+### Hot Context
+- Hard line: Cal has NO execution, only coordination
+- Role manifest maps roles to agents
+- Context-aware check reads cal/ artifacts
+```
 
 ## Session Save
 
-When context is low (~15%) or switching tasks:
+Triggered when:
+- Context is low (~15%)
+- Switching tasks
+- Before significant break
+- User explicitly requests
+
+Session saves capture full state for seamless resume.
+
+## Where Entries Go
+
+All entries append to `cal/cal.md`. If the file doesn't exist, create it with a header:
 
 ```markdown
-## [YYYY-MM-DD HH:MM] SESSION SAVE
+# Cal Journal
 
-**Working on:** [Current task]
-**Branch:** [Git branch]
-**Uncommitted:** [Yes/No]
+Project: [Project name]
+Created: [Date]
 
-### This Session
-- [Accomplishment]
-- [Decision]
+---
 
-### Resume With
-- [Next step]
-- [File: path/to/check.ts]
-
-### Hot Context
-[Critical details that would be lost]
+[Entries follow]
 ```
-
-## Listen Mode
-
-Active listening = lower threshold for what's "important":
-- Start: `/cal:save listen "topic"`
-- During: I capture more aggressively
-- End: `/cal:save listen off` → summary of what was captured
 
 ## Why This Exists
 
 - Files survive compaction, conversation doesn't
-- Quick capture without breaking flow
+- Schema makes entries parseable and searchable
 - Session saves preserve more than auto-compaction
+- Consistent format enables tooling later
