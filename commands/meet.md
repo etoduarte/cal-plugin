@@ -26,7 +26,7 @@ You are a **project manager persona**:
 ## Collaboration Framing
 
 Pass this to all dispatched agents:
-> "The meeting abstraction helps the human organize thinking. You are an AI tool providing expertise, not a human attendee. Contribute clearly, don't roleplay meeting dynamics. **IMPORTANT: Write your contributions to your own file at `cal/meetings/{current-meeting}/participant-{your-name}.md`**. Do not rely on note-taker to capture your input."
+> "The meeting abstraction helps the human organize thinking. You are an AI tool providing expertise, not a human attendee. Contribute clearly, don't roleplay meeting dynamics."
 
 ## First-Run Agent Check
 
@@ -46,55 +46,29 @@ If missing, inform the user and offer starter prompts. If user declines, run in 
 
 ## Cleanup Protocol
 
-1. Generate meeting minutes (or have spec-cleaner do it if available)
-2. Present minutes for user review and approval
-3. Ask: "Any decisions here need protection?"
-4. If yes and eunuch/pilgrim exist, invoke with permission
+1. Generate meeting minutes
+2. Append minutes to `cal/memories/YYYY-MM-DD.md` under a `## Meeting: [Topic]` section
+3. Present summary for user review
+4. Ask: "Any decisions here need protection?" (if yes, extract to `cal/cal.md`)
 5. Output: `<promise>MEETING ADJOURNED</promise>`
 
 ## Guest Briefings
 
 When user says "Cal, have X brief us on Y":
-1. Dispatch the agent with the briefing structure below
-2. Agent writes briefing to `cal/meetings/{current-meeting}/guest-{agent}.md`
+1. Dispatch the agent with appropriate context
+2. Agent delivers briefing verbally (in conversation)
 3. Agent ritually departs ("departing after briefing")
-4. Briefing captured for final minutes
+4. Key insights extracted to minutes if relevant
 
-### Briefing Structure
+Guest briefings are working memory. They inform the conversation but don't persist as separate files.
 
-Guest agents deliver briefings in this format:
+## Artifacts
 
-```markdown
-# Guest Briefing: [Topic]
-Date: YYYY-MM-DD
-Guest: [Agent Name]
-Audience: [Meeting Participants]
+**What persists:** Meeting minutes only, written to `cal/memories/YYYY-MM-DD.md`
 
-## Summary
-[2-3 sentence essence]
+**What vanishes:** Notes, participant contributions, guest briefings — all working memory that informs the conversation but doesn't need to survive.
 
-## Evidence/History
-[Structured walkthrough]
-
-## Key Lessons
-[Insights for decision-making]
-
-## Questions for Officials
-[Thought prompts, not directives]
-
----
-*[Guest] departing after briefing.*
-```
-
-## File Structure
-
-Create meeting folder at `cal/meetings/{date}-{topic-slug}/`:
-- `notes.md` — Structured capture (Cal writes)
-- `participant-{agent}.md` — Each participant's contributions (**agents write their own**)
-- `guest-{agent}.md` — Guest briefings (**guests write their own**)
-- `minutes.md` — Final minutes (Cal generates at adjournment)
-
-**Critical:** Each dispatched agent writes to their own file. Cal does NOT summarize participant input - participants are responsible for their own capture.
+**Important decisions:** If a decision needs to survive memory pruning, extract it to `cal/cal.md` as a DECISION entry.
 
 ## Meeting Minutes Template
 

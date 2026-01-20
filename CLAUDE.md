@@ -14,8 +14,10 @@
 **Core (colon syntax):**
 - `/cal:meet` - Virtual meeting coordinator
 - `/cal:check` - Context-aware verification dispatch
-- `/cal:save` - Journal context preservation
+- `/cal:save` - Context preservation (routed by type)
 - `/cal:onboard` - Project setup and agent suggestions
+- `/cal:prune` - Interactive cleanup review
+- `/cal:archive` - Opt-in storage (rare, exception cases)
 
 **Utilities (space syntax):**
 - `/cal delta` - Surface wrong assumptions
@@ -29,20 +31,26 @@ All Cal files live in `cal/` at the project root:
 ```
 project/
 └── cal/
-    ├── cal.md              # Main journal (deltas, saves, decisions)
+    ├── cal.md              # Core journal ONLY (<300 lines target)
+    │                       # Contains: deltas, AHAs, memories, decisions
+    ├── memories/           # Timestamped context (prunable ~7 days)
+    │   └── YYYY-MM-DD.md   # Sessions, meeting minutes, hot context
+    ├── archive/            # Opt-in storage (rare, exception cases)
+    │   └── YYYY-MM-DD-[topic].md
     ├── agent-prompts.md    # Prompts for creating suggested agents
-    ├── inside-out/         # Deep understanding explorations
-    │   └── [topic].md
-    └── meetings/           # Meeting artifacts
-        └── [date]-[topic]/
-            ├── notes.md
-            ├── minutes.md
-            └── participant-[agent].md
+    └── inside-out/         # Deep understanding explorations
+        └── [topic].md
 ```
+
+**Meetings:** Minutes go to `cal/memories/YYYY-MM-DD.md`. No separate meeting folders — meetings are just another thing that happened that day.
+
+**Key insight:** `cal/cal.md` should be SMALL and HIGH-VALUE. Everything else has a home elsewhere.
 
 **Transient state:** `.claude/*.local.md` files for session-specific data (not committed).
 
 Falls back to `~/.claude/cal-journal.md` if no project context.
+
+**Location enforcement:** If `cal.md` exists at project root instead of `cal/cal.md`, Cal will warn about the mismatch.
 
 ## Journal Entry Schema
 
@@ -54,11 +62,16 @@ All entries to `cal/cal.md` follow this format:
 [Content]
 ```
 
-**Types:**
+**Types (permanent → cal/cal.md):**
 - `DELTA` - Wrong assumption surfaced (BELIEVED/ACTUAL/DELTA)
-- `SAVE` - Context preservation
-- `DECISION` - Decision recorded with rationale
-- `SESSION` - Session summary
+- `AHA` - Discovery worth encoding
+- `MEMORY` - User patterns, preferences, personal context
+- `DECISION` - Choice made with rationale
+
+**Types (ephemeral → cal/memories/):**
+- `SESSION` - Point-in-time context dump for resume
+
+**Core principle:** Extract the learning, let the output vanish. Agent outputs are scaffolding.
 
 **Example:**
 ```markdown

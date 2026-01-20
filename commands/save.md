@@ -7,24 +7,62 @@ argument-hint: "[type] [content]"
 
 **Trigger:** `/cal:save [type] [content]`
 
-**Purpose:** Preserve context to `cal/cal.md` using the journal entry schema.
+**Purpose:** Preserve learnings and context with appropriate routing.
+
+## Core Principle
+
+**Extract the learning, let the output vanish.**
+
+Agent outputs are scaffolding. Once you've acted on them, the output doesn't matter — only the extracted insight does. Don't save outputs; save what you learned from them.
+
+## Routing
+
+| Type | Destination | Lifespan |
+|------|-------------|----------|
+| `delta` | `cal/cal.md` | Permanent |
+| `aha` | `cal/cal.md` | Permanent |
+| `memory` | `cal/cal.md` | Permanent |
+| `decision` | `cal/cal.md` | Permanent |
+| `session` | `cal/memories/YYYY-MM-DD.md` | Prunable |
 
 ## Usage
 
 ```bash
-# Quick entries (uses SAVE type)
-/cal:save "decision to use X over Y"
+# Permanent learnings → cal/cal.md
+/cal:save delta "BELIEVED: X, ACTUAL: Y, DELTA: Z"
+/cal:save aha "scope creep happens when..."
+/cal:save memory "user prefers Socratic method"
+/cal:save decision "chose X over Y because..."
 
-# Explicit types
-/cal:save delta "BELIEVED: X, ACTUAL: Y"
-/cal:save decision "chose snapshot architecture for SSC-R1"
-/cal:save session  # Full context dump
-
-# With topic
-/cal:save delta auth "tokens expire after 1 hour not 24"
+# Ephemeral context → cal/memories/
+/cal:save session  # Full context dump for resume
 ```
 
-## Journal Entry Schema
+## What Goes Where
+
+### cal/cal.md (Permanent, <300 lines target)
+
+- **Deltas** — Wrong assumptions surfaced (BELIEVED/ACTUAL/DELTA)
+- **AHAs** — Discoveries worth encoding
+- **Memories** — User patterns, preferences, personal context
+- **Decisions** — Choices made with rationale
+
+### cal/memories/YYYY-MM-DD.md (Prunable)
+
+- **Session saves** — Point-in-time context for resume
+- Hot context that's useful now but stale tomorrow
+- Can be deleted after a week without loss
+
+### What Does NOT Get Saved
+
+| Output Type | Example | What to Do |
+|-------------|---------|------------|
+| Routine checks | "typescript: 0 errors" | Let vanish |
+| Confirmations | "spec looks clean" | Let vanish |
+| Agent reviews | 200-line Beta Enthusiast output | Extract learning → delta/AHA, discard output |
+| Decisions about specs | "Bart said HOLD, resolved by X" | Note in the spec, not archive |
+
+## Entry Schema
 
 All entries follow this format:
 
@@ -34,24 +72,9 @@ All entries follow this format:
 [Content]
 ```
 
-### Types
-
-| Type | When to Use | Format |
-|------|-------------|--------|
-| `SAVE` | General context preservation | Free text |
-| `DELTA` | Wrong assumption surfaced | BELIEVED/ACTUAL/DELTA |
-| `DECISION` | Choice made with rationale | Choice + rationale |
-| `SESSION` | Full state dump before context loss | Structured template |
-
 ### Examples
 
 ```markdown
-## 2026-01-17 SAVE - Auth implementation
-
-Completed OAuth flow integration with Google. Token refresh handled in middleware.
-
----
-
 ## 2026-01-17 DELTA - Database schema
 
 BELIEVED: block_config column exists
@@ -60,63 +83,60 @@ DELTA: Always verify schema before writing queries
 
 ---
 
+## 2026-01-17 AHA - Scope creep
+
+Scope creep happens fastest when "one more thing" sounds small.
+The fix: name the pivot before doing it.
+
+---
+
+## 2026-01-17 MEMORY - User patterns
+
+User prefers Socratic method. Questions are invitations to brainstorm, not commands.
+
+---
+
 ## 2026-01-17 DECISION - Architecture
 
 Chose snapshot-based architecture (SSC-R1) over entity-based.
 Rationale: Snapshots provide immutable history, entities derive at runtime.
 Revisit-if: Performance issues with large snapshot counts.
-
----
-
-## 2026-01-17 SESSION - Context preservation
-
-**Working on:** Cal 2.0 implementation
-**Branch:** main
-**Uncommitted:** Yes (Phase 1 complete)
-
-### This Session
-- Completed Phase 0: Foundation (F-1 through F-5)
-- Completed Phase 1: Simplification (S-1 through S-7)
-- Commands reduced from 16 to 7
-
-### Resume With
-- Start Phase 2: Core Enhancement
-- Next: E-1 Polish meet.md
-
-### Hot Context
-- Hard line: Cal has NO execution, only coordination
-- Role manifest maps roles to agents
-- Context-aware check reads cal/ artifacts
 ```
 
-## Session Save
+## Session Save Template
 
-Triggered when:
-- Context is low (~15%)
-- Switching tasks
-- Before significant break
-- User explicitly requests
-
-Session saves capture full state for seamless resume.
-
-## Where Entries Go
-
-All entries append to `cal/cal.md`. If the file doesn't exist, create it with a header:
+Session saves go to `cal/memories/YYYY-MM-DD.md`:
 
 ```markdown
-# Cal Journal
+## [TIME] SESSION - [Topic]
 
-Project: [Project name]
-Created: [Date]
+**Working on:** [Current task]
+**Branch:** [Git branch]
+**Uncommitted:** [Yes/No]
 
----
+### This Session
+- [What was accomplished]
 
-[Entries follow]
+### Resume With
+- [Next steps]
+
+### Hot Context
+- [Critical details needed to continue]
 ```
+
+## Location Check
+
+On save, verify `cal/cal.md` exists. If not:
+- If `cal.md` exists at project root: **Warn** — "Cal journal should be at `cal/cal.md`, found `cal.md` at root instead. Move it?"
+- If neither exists: Create `cal/cal.md` with header
+
+## Size Guidance
+
+If `cal/cal.md` exceeds 300 lines, it's time to prune. Run `/cal:prune` to review.
 
 ## Why This Exists
 
-- Files survive compaction, conversation doesn't
-- Schema makes entries parseable and searchable
-- Session saves preserve more than auto-compaction
-- Consistent format enables tooling later
+- **Permanent learnings** survive compaction and session loss
+- **Ephemeral context** has a home that can be cleaned up
+- **Outputs vanish** because they're scaffolding, not knowledge
+- **Size limits** prevent unbounded growth
