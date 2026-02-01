@@ -1,41 +1,42 @@
 # Project Preferences
 
-Hardcoded defaults. These override training defaults.
+Hardcoded defaults. Override training defaults.
 
-## Infrastructure Stack
+## Stack
 
-| Layer | Tool | Non-negotiable |
-|-------|------|----------------|
-| Database | Supabase | Yes |
-| Hosting | Vercel | Yes |
-| Auth | Supabase Auth | Yes |
+| Layer | Tool |
+|-------|------|
+| Database | Supabase |
+| Hosting | Vercel |
+| Auth | Supabase Auth |
 
-## Deploy Workflow
+## Deploy Flow
 
-**Preferred flow:**
 ```
-git add → git commit → git push → review live on Vercel preview
+git commit → git push → review on Vercel preview
 ```
 
-Not: commit and wait. Push immediately. Review on live preview URL.
+Push immediately. Review live. Not local.
 
-## React Projects
+## React/Next.js
 
-**Required:**
-- Storybook for all component development
-- Build components in Storybook FIRST, then integrate
-- Stories for every component
-- Deploy Storybook to `/admin/storybook` path
+- **Storybook first** — Build components in Storybook, then integrate
+- **Stories for everything** — Every component gets a story
+- **Storybook path:** `/admin/storybook` (part of app, not separate)
 
-**Component order:**
-1. Design in Storybook
-2. Build variants
-3. Test interactions
-4. Then integrate into app
+## Next.js Boundaries
 
-## Git Preferences
+Classes can't serialize across server/client. Use Hot Potato:
 
-- Commit frequently, small commits
-- Push after each logical unit
+```
+Server: DB → DTO (plain object) → JSON
+Client: JSON → hydrate to class → use rich object
+```
+
+Rich objects live on client only. DTOs cross the wire.
+
+## Git
+
+- Small commits, push often
 - Use Vercel preview links for review
 - PR when feature complete

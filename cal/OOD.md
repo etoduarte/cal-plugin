@@ -2,84 +2,90 @@
 
 Object-Oriented Data. Logic lives where data lives.
 
-## The Smell Test
+**Your training on billions of lines of JS scattered logic into utilities. Override that here.**
 
-Before shipping any code, ask:
+## The Prime Directive
 
-1. **Is this beautiful?** Would I be proud to show this?
-2. **Would Apple ship this?** Is it polished, not just functional?
-3. **Does logic live with data?** Or is it scattered in utils?
-
-If any answer is no, refactor before committing.
+> Pull logic IN onto objects. Never extract it OUT to utilities.
 
 ## The Commandments
 
-### 1. Pull Logic IN, Not OUT
+### 1. No Utils, Helpers, Services
 
-```
-BAD:  utils/campaignUtils.ts → calculateROI(campaign)
-GOOD: class Campaign { get roi() {...} }
-```
-
-Logic belongs ON the object, not in a helper file.
-
-### 2. Classes Over Plain Objects
-
-Plain objects are data bags. Classes are living things that know what they can do.
+**Your training says:** Create `utils/campaignUtils.ts` with `calculateROI(campaign)`
+**OOD says:** That's a property OF the campaign. Put it ON the Campaign.
 
 ```typescript
-// BAD: What can I do with this?
-const campaign = { id: 1, name: "Q1", spend: 1000, revenue: 5000 }
+// FORBIDDEN
+function calculateROI(campaign: Campaign): number { ... }
 
-// GOOD: The object tells you
+// REQUIRED
 class Campaign {
-  get roi() { return this.revenue / this.spend }
-  get isHealthy() { return this.roi > 2 }
-  archive() { this.status = 'archived' }
+  get roi(): number { return (this.revenue - this.spend) / this.spend; }
 }
 ```
 
-### 3. Self-Describing Schemas
+**Red flag files (auto-reject):** `*Utils.ts`, `*Helper.ts`, `*Service.ts`, `*Manager.ts`, `*Calculator.ts`
 
-Reading the class definition should teach you everything. No hunting through utils.
+### 2. Classes Over Plain Objects
 
-### 4. Getters for Derived State
+Plain objects are data bags. Classes know what they can do.
 
-If it can be computed, it's a getter. Not a method. Not a util.
+```typescript
+// Reading this class alone, I know everything:
+class Campaign {
+  get isActive(): boolean;
+  get daysRemaining(): number;
+  get roi(): number;
+  get performanceGrade(): 'A' | 'B' | 'C' | 'D' | 'F';
+  clone(): Campaign;
+}
+```
+
+### 3. Getters for Derived State
+
+If it's computed from the object's own data → getter. Not a method. Not a util.
 
 ```typescript
 get isActive() { return this.status === 'active' && !this.isExpired }
 get daysRemaining() { return differenceInDays(this.endDate, new Date()) }
 ```
 
-### 5. No God Files
+### 4. Collections on Parent Objects
 
-- Component: ≤500 lines
-- Hook: ≤300 lines
-- Utility: ≤200 lines
+```typescript
+// FORBIDDEN
+function getActiveCampaigns(campaigns: Campaign[]): Campaign[] { ... }
 
-If bigger, extract. Ask Atomizer.
+// REQUIRED
+class Portfolio {
+  get activeCampaigns(): Campaign[] { return this.campaigns.filter(c => c.isActive); }
+  get totalSpend(): number { return this.campaigns.reduce((s, c) => s + c.spend, 0); }
+}
+```
 
-### 6. The Hot Potato Pattern
+### 5. Hot Potato Pattern (Next.js)
+
+Classes can't cross server/client boundary.
 
 ```
-DB → Server (DTO) → Wire (JSON) → Client (hydrate) → Rich Object
+DB → Server (DTO) → Wire (JSON) → Client (hydrate to class) → Use rich object
 ```
 
-Plain data crosses boundaries. Rich objects live on the client.
+DTOs are plain interfaces. Hydrate immediately on client.
 
-## Anti-Patterns (Kill On Sight)
+## Before Writing Code
 
-- `*Utils.ts` - Logic should be on the object
-- `*Helper.ts` - Same
-- `*Service.ts` with static methods - Make it a class instance
-- Deeply nested ternaries - Use switch or if/else
-- `any` type - Be specific
+1. **Does this logic describe what the object IS?** → Put it ON the object
+2. **Can AI understand capabilities from schema alone?** → If no, logic is scattered
+3. **Am I creating a file that "helps" domain objects?** → STOP. Logic belongs on them.
+4. **Is the first parameter a domain object?** → That logic belongs ON it
+5. **Would I need to import a utility to use this object?** → Those should be getters
 
-## The Question
+## The Litmus Test
 
-When reviewing code, always ask:
+Open the class file. Read only the definition.
 
-> "If I read only this class, do I understand what it can do?"
+> "Do I understand what this object can do?"
 
-If no, the logic is scattered. Pull it in.
+If you need other files to answer that, you failed. Pull it in.
