@@ -132,7 +132,7 @@ On save, verify `cal/cal.md` exists. If not:
 
 ## Size Guidance
 
-If `cal/cal.md` exceeds 300 lines, it's time to prune. Run `/cal:prune` to review.
+If `cal/cal.md` exceeds 300 lines, review and consolidate entries.
 
 ## Why This Exists
 

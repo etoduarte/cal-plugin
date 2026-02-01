@@ -1,20 +1,21 @@
 ---
-description: "Surface wrong assumptions"
+name: delta
+description: Use this skill when you notice a wrong assumption, when reality doesn't match expectation, when a test fails unexpectedly, when the user corrects something you were confident about, when you detect blunt correction words (INSTEAD, NOT, ACTUALLY), or after making a confident statement that turns out to be incorrect. This skill surfaces and documents wrong assumptions.
+version: 1.0.0
 ---
 
 # Delta - Surface Wrong Assumptions
 
-**Trigger:** `/cal delta [topic]`
-
 **Purpose:** Surface and document wrong assumptions using the BELIEVED/ACTUAL/DELTA format.
 
-## When to Use
+## When This Skill Applies
 
+This skill auto-activates when:
 - Reality doesn't match expectation
 - A test fails unexpectedly
 - User corrects something I was confident about
 - Blunt words from user (INSTEAD, NOT, ACTUALLY)
-- After confident fabrication
+- After confident fabrication is discovered
 
 ## Protocol
 
@@ -47,7 +48,7 @@ ENCODED: CampaignService.getConfig() assumed column existed
 
 ## Key Insight
 
-> "I now distinguish 'I read this file' from 'I know this pattern.' Only the first counts." - Hutch
+> "I now distinguish 'I read this file' from 'I know this pattern.' Only the first counts."
 
 Pattern-matching is not reading. After refactors, always read the actual file.
 

@@ -1,49 +1,51 @@
 # Cal Plugin
 
-**Cal's recalibration toolkit.** Protocols for when things go sideways.
+**Coordination toolkit for Claude Code.** Cal manages the pipeline, not the code.
 
-## Commands (8)
+## What Cal Is
+
+Cal is a **coordinator**, not a coder. It:
+- Runs ideas through a structured pipeline
+- Dispatches work to specialized agents
+- Captures learnings
+- Prevents chaos
+
+## Commands
 
 | Command | Purpose |
 |---------|---------|
-| `/cal:fly` | Accept story, proceed (THE acceptance signal) |
-| `/cal:check` | Verify before action (pre-flight + proceed) |
-| `/cal:review` | Quality gate after action (post-flight + dispatch) |
-| `/cal:squirrel` | Stop drifting, refocus |
-| `/cal:delta` | Surface wrong assumptions |
-| `/cal:save` | Context preservation (journal + aha + listen) |
-| `/cal:reset` | Nuclear context reset |
-| `/cal:help` | Documentation |
+| `/cal:next` | Advance pipeline - find and execute next step |
+| `/cal:meet` | Brainstorm facilitator |
+| `/cal:save` | Context preservation |
+| `/cal:onboard` | Project setup + team roster |
+| `/cal:inside-out` | Deep understanding protocol |
 
-Bonus: `/cal:outside-in` for structural debugging (specialized).
+## Skills (Auto-Invoke)
 
-## User Signals
+| Skill | Triggers |
+|-------|----------|
+| `lifeline` | Frustration or joy detected |
+| `delta` | Wrong assumptions surfaced |
+| `squirrel` | Task drift detected |
+| `dispatch` | Work needs delegation |
 
-| Signal | Meaning |
-|--------|---------|
-| "fly" | **ACCEPTANCE** - Advance workflow |
-| "looks good", "nice" | **PROGRESS** - Continue, don't advance |
-
-**Only "fly" advances.** Everything else is encouragement.
-
-## Workflow
+## The Pipeline
 
 ```
-/cal:check → implement → /cal:review → /cal:fly → next
+Hopper → Brainstorm → BRD → Lisa → Ralph → Triage → Ship → Archive
 ```
+
+Each idea is a folder. Each phase gate requires explicit approval + commit/push.
 
 ## Philosophy
 
-1. **Honesty > Confidence** - "I don't know" beats confident wrong
-2. **Verify before encoding** - Pattern-matching is not reading
-3. **Files survive, conversations don't** - Put important stuff in cal.md
+1. **Cal never codes** - Dispatches to Coder agent
+2. **Ideas are folders** - All docs stay together
+3. **Commit at gates** - Review on live preview
+4. **Extract learnings** - Let outputs vanish
 
-## Execution Gate
+## Approval Gates
 
-Outside Ralph loop: User stories require explicit permission.
-
-## Trust Killers
-
-1. Confident fabrication
-2. Modifying sacred things without permission
-3. Treating "looks good" as acceptance
+Advancement requires explicit approval:
+- "approved", "advance", "next phase", or `/approve`
+- Positive feedback ≠ advancement

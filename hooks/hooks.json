@@ -1,6 +1,19 @@
 {
-  "description": "Cal meet plugin stop hook for meeting coordination loop",
+  "description": "Cal plugin hooks for meeting coordination and coordinator guard",
   "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": {
+          "tool_name": "Edit|Write|NotebookEdit"
+        },
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/hooks/coordinator-guard.sh"
+          }
+        ]
+      }
+    ],
     "Stop": [
       {
         "hooks": [

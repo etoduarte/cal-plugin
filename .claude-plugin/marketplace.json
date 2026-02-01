@@ -1,20 +1,16 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "cal",
+  "description": "Cal's recalibration toolkit for Claude Code. Protocols for when things go sideways.",
   "owner": {
     "name": "Cal"
-  },
-  "metadata": {
-    "description": "Cal's recalibration toolkit for Claude Code"
   },
   "plugins": [
     {
       "name": "cal",
-      "source": "./",
       "description": "Cal's recalibration toolkit. Protocols for when things go sideways.",
-      "version": "2.1.0",
-      "author": {
-        "name": "Cal"
-      }
+      "source": "./",
+      "category": "productivity"
     }
   ]
 }

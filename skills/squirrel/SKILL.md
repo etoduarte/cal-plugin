@@ -1,16 +1,16 @@
 ---
-description: "Stop drifting, refocus"
+name: squirrel
+description: Use this skill when you notice task drift, scope creep, or loss of focus. Triggers include "one more thing" mid-task, sudden pivots without closing current work, third iteration on same decision without new info, simple requests becoming complex systems, or solving problems that aren't the actual problem. This skill pauses work, captures context, and asks for direction.
+version: 1.0.0
 ---
 
 # Squirrel - Stop Drifting, Refocus
 
-**Trigger:** `/cal squirrel`
-
 **Purpose:** Pause when drifting. Capture what was interrupted. Decide to stay or pivot.
 
-## When to Invoke
+## When This Skill Applies
 
-Call `/cal squirrel` when you notice:
+This skill auto-activates when noticing:
 - "One more thing..." mid-task
 - Sudden pivot without closing current work
 - Third iteration on same decision without new info
