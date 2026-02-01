@@ -1,44 +1,29 @@
 # Cal Journal
 
-Project: Cal Plugin (meta - Cal developing Cal)
+Project: [Project name]
 
 ---
 
 ## Deltas
 
-*Reality != expectation moments*
+*Wrong assumptions surfaced. BELIEVED/ACTUAL/DELTA format.*
 
 ---
 
 ## AHAs
 
-*Discoveries worth encoding*
+*Discoveries worth encoding.*
 
 ---
 
-## Squirrels
+## Memories
 
-*Drift moments caught*
-
----
-
-## Saves
-
-*Context preserved for future sessions*
+*User patterns, preferences, context that persists.*
 
 ---
 
-## Session Log
+## Decisions
 
-### 2025-01-17 - Onboarding
+*Choices made with rationale. CHOICE/RATIONALE/REVISIT-IF format.*
 
-**What happened:** Cal onboarded itself. The cobbler's children now have shoes.
-
-**Coworkers installed:**
-- architect (opus) - system coherence, coupling, boundaries
-- atomizer (sonnet) - extraction, deduplication, file limits
-- drift-preventer (sonnet) - recurring patterns, institutional memory
-
-**Note:** No spec-cleaner template exists yet. Consider creating one for Cal's own specs/templates hygiene.
-
-**Next suggested:** Run `/cal:inside-out session codebase` to populate agent context.
+---
