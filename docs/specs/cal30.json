@@ -1,0 +1,99 @@
+{
+  "feature": "cal30",
+  "title": "Cal 3.0 — Plugin Redesign for Opus 4.6",
+  "created": "2026-02-07",
+  "status": "APPROVED",
+  "phases": [
+    {
+      "id": "phase-1",
+      "name": "Architecture",
+      "description": "Restructure Cal plugin files: rewrite CLAUDE.md, create .claude/rules/, create .claude/agents/, merge NOW.md+INDEX.md, remove old hooks",
+      "stories": [
+        {
+          "id": "US-1",
+          "title": "Rewrite CLAUDE.md lean (~50 lines)",
+          "acceptance": "CLAUDE.md under 60 lines, contains commands table, analysis modes mention, team reference, brain files, preferences @imports"
+        },
+        {
+          "id": "US-2",
+          "title": "Create .claude/rules/ behavioral rules",
+          "acceptance": "coordinator.md, tone-awareness.md, squirrel.md, delta.md exist in .claude/rules/ with full behavioral protocols"
+        },
+        {
+          "id": "US-3",
+          "title": "Create .claude/agents/ team definitions",
+          "acceptance": "coder.md, reviewer.md, architect.md exist in .claude/agents/ with YAML frontmatter and system prompts"
+        },
+        {
+          "id": "US-4",
+          "title": "Create cal/agents.md team roster",
+          "acceptance": "Human-readable roster references .claude/agents/ files"
+        },
+        {
+          "id": "US-5",
+          "title": "Merge INDEX.md into NOW.md",
+          "acceptance": "NOW.md contains current focus + pipeline state. INDEX.md removed."
+        },
+        {
+          "id": "US-6",
+          "title": "Remove old hooks",
+          "acceptance": "coordinator-guard.sh and stop-hook.sh removed. hooks.json simplified."
+        }
+      ]
+    },
+    {
+      "id": "phase-2",
+      "name": "Skills Migration",
+      "description": "Migrate commands/ to skills/, create /cal:analyze, update meet/next/save/onboard, remove old auto-invoke skills",
+      "stories": [
+        {
+          "id": "US-7",
+          "title": "Create skills/analyze/SKILL.md",
+          "acceptance": "/cal:analyze [mode] works for all 7 modes. Mode auto-suggestion works when no mode specified."
+        },
+        {
+          "id": "US-8",
+          "title": "Update skills/meet/SKILL.md",
+          "acceptance": "Meet runs without stop-hook. Auto-detect meeting end works."
+        },
+        {
+          "id": "US-9",
+          "title": "Update skills/next/SKILL.md",
+          "acceptance": "Dynamic pipeline support. Cal proposes phases, waits for approval."
+        },
+        {
+          "id": "US-10",
+          "title": "Remove old commands/ and auto-invoke skills",
+          "acceptance": "commands/ directory removed. skills/lifeline/, skills/delta/, skills/squirrel/, skills/dispatch/ removed."
+        }
+      ]
+    },
+    {
+      "id": "phase-3",
+      "name": "Analysis Modes",
+      "description": "Write cal/analysis.md with all 7 mode protocols",
+      "stories": [
+        {
+          "id": "US-11",
+          "title": "Write cal/analysis.md",
+          "acceptance": "All 7 modes documented with name, best-for, method, output format. @import from CLAUDE.md works."
+        }
+      ]
+    },
+    {
+      "id": "phase-4",
+      "name": "Onboard Update",
+      "description": "Update onboard to generate/suggest CLAUDE.md edits and create new structure in user projects",
+      "stories": [
+        {
+          "id": "US-12",
+          "title": "Update skills/onboard/SKILL.md",
+          "acceptance": "On fresh project: generates CLAUDE.md, .claude/rules/, .claude/agents/, cal/ structure. On existing project: suggests non-destructive improvements."
+        }
+      ]
+    }
+  ],
+  "future": {
+    "cal31": "Supabase memory sync — portable Cal brain across computers and projects"
+  }
+}

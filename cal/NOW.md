@@ -12,6 +12,17 @@
 
 **Blocked by:** [Nothing / What's blocking]
 
+## Pipeline
+
+| Feature | Phase | Status |
+|---------|-------|--------|
+| — | — | — |
+
 ## What's Next?
 
 [The immediate next step after current focus]
+
+## Parking Lot
+
+Ideas that came up but are out of scope for current work:
+- —

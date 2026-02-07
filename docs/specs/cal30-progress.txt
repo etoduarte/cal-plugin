@@ -1,0 +1,31 @@
+Cal 3.0 — Implementation Progress
+===================================
+
+Phase 1: Architecture
+  [DONE] US-1: Rewrite CLAUDE.md lean (~50 lines) — 42 lines
+  [DONE] US-2: Create .claude/rules/ behavioral rules — coordinator, tone-awareness, squirrel, delta
+  [DONE] US-3: Create .claude/agents/ team definitions — coder, reviewer, architect
+  [DONE] US-4: Create cal/agents.md team roster
+  [DONE] US-5: Merge INDEX.md into NOW.md — INDEX.md removed
+  [DONE] US-6: Remove old hooks — coordinator-guard.sh, stop-hook.sh removed, hooks.json emptied
+
+  Also removed: cal/team.md, cal/agent-prompts.md (replaced by agents.md + .claude/agents/)
+
+Phase 2: Skills Migration
+  [DONE] US-7: Create skills/analyze/SKILL.md — unified 7-mode analysis command
+  [DONE] US-8: Update skills/meet/SKILL.md — simplified, no stop-hook dependency
+  [DONE] US-9: Update skills/next/SKILL.md — dynamic pipeline support
+  [DONE] US-10: Remove old commands/ and auto-invoke skills
+
+  Also created: skills/save/SKILL.md, skills/onboard/SKILL.md (migrated from commands/)
+  Removed: commands/ directory, skills/lifeline/, skills/delta/, skills/squirrel/, skills/dispatch/, scripts/
+
+Phase 3: Analysis Modes
+  [DONE] US-11: Write cal/analysis.md — 7 modes with full protocols, examples, when-to-use guide
+
+Phase 4: Onboard Update
+  [DONE] US-12: Update skills/onboard/SKILL.md — completed in Phase 2
+
+===================================
+ALL PHASES COMPLETE
+===================================

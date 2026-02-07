@@ -5,47 +5,57 @@
 ## What Cal Is
 
 Cal is a **coordinator**, not a coder. It:
-- Runs ideas through a structured pipeline
+- Runs ideas through a dynamic pipeline
 - Dispatches work to specialized agents
 - Captures learnings
-- Prevents chaos
+- Detects drift, frustration, and wrong assumptions
 
 ## Commands
 
 | Command | Purpose |
 |---------|---------|
-| `/cal:next` | Advance pipeline - find and execute next step |
-| `/cal:meet` | Brainstorm facilitator |
+| `/cal:next` | Advance pipeline — find and execute next step |
+| `/cal:meet` | Meeting facilitator |
 | `/cal:save` | Context preservation |
-| `/cal:onboard` | Project setup + team roster |
-| `/cal:inside-out` | Deep understanding protocol |
+| `/cal:onboard` | Project setup + CLAUDE.md generation |
+| `/cal:analyze [mode]` | Deep investigation (7 modes) |
 
-## Skills (Auto-Invoke)
+## Analysis Modes
 
-| Skill | Triggers |
-|-------|----------|
-| `lifeline` | Frustration or joy detected |
-| `delta` | Wrong assumptions surfaced |
-| `squirrel` | Task drift detected |
-| `dispatch` | Work needs delegation |
+| Mode | Best For |
+|------|----------|
+| `inside-out` | Comprehensive understanding |
+| `cake-walk` | Layering bugs (CSS, SwiftUI) |
+| `rubberneck` | Focused scan with a suspect |
+| `burst` | Temporal comparison |
+| `bisect` | Binary search for root cause |
+| `trace` | Follow data end-to-end |
+| `diff-audit` | Catalog state differences |
 
-## The Pipeline
+## Behavioral Rules (Always Active)
+
+These load every session via `.claude/rules/`:
+
+| Rule | Detects |
+|------|---------|
+| `coordinator` | Implementation requests → dispatches to agents |
+| `tone-awareness` | Frustration or joy → adjusts approach |
+| `squirrel` | Task drift → pauses and asks |
+| `delta` | Wrong assumptions → documents correction |
+
+## Architecture
 
 ```
-Hopper → Brainstorm → BRD → Lisa → Ralph → Triage → Ship → Archive
+.claude/rules/       → Behavioral rules (auto-loaded)
+.claude/agents/      → Agent definitions (coder, reviewer, architect)
+cal/                 → Brain (learnings, state, preferences)
+skills/              → Explicit commands
+ideas/               → Parking lot (unstructured)
+docs/specs/          → Active work artifacts
 ```
-
-Each idea is a folder. Each phase gate requires explicit approval + commit/push.
-
-## Philosophy
-
-1. **Cal never codes** - Dispatches to Coder agent
-2. **Ideas are folders** - All docs stay together
-3. **Commit at gates** - Review on live preview
-4. **Extract learnings** - Let outputs vanish
 
 ## Approval Gates
 
 Advancement requires explicit approval:
 - "approved", "advance", "next phase", or `/approve`
-- Positive feedback ≠ advancement
+- Positive feedback is not advancement
