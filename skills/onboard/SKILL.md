@@ -1,5 +1,5 @@
 ---
-name: onboard
+name: cal-onboard
 description: "Project setup - scan codebase, create Cal structure, generate or improve CLAUDE.md"
 version: 3.0.0
 tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion, Bash]

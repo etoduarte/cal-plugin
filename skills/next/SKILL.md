@@ -1,5 +1,5 @@
 ---
-name: next
+name: cal-next
 description: "Advance the pipeline - find and execute next step"
 version: 3.0.0
 tools: [Read, Write, Edit, Task, AskUserQuestion, Bash, Glob]

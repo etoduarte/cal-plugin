@@ -1,5 +1,5 @@
 ---
-name: analyze
+name: cal-analyze
 description: "Deep investigation with 7 analysis modes. Usage: /cal:analyze [mode] [subject]. Modes: inside-out, cake-walk, rubberneck, burst, bisect, trace, diff-audit. If no mode specified, Cal suggests the best one."
 version: 3.0.0
 tools: [Read, Write, Edit, Glob, Grep, Task, AskUserQuestion, Bash]
