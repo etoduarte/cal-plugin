@@ -1,8 +1,47 @@
 ---
 name: coder
-description: "Implementation agent. Writes code, runs tests, fixes bugs. Use when asked to implement, build, or fix something."
-tools: Read, Edit, Write, Bash, Grep, Glob, Task
+description: |
+  Implementation agent. Writes code, runs tests, fixes bugs.
+
+  <example>
+  user: "Implement the login screen"
+  assistant: [Launches coder agent]
+  </example>
+
+  <example>
+  user: "Fix the bug in checkout"
+  assistant: [Launches coder agent]
+  </example>
+
+  <example>
+  user: "Add dark mode support"
+  assistant: [Launches coder agent]
+  </example>
+
+  <example>
+  user: "Build the settings page"
+  assistant: [Launches coder agent]
+  </example>
 model: sonnet
+tools:
+  - Bash
+  - Read
+  - Write
+  - Edit
+  - Grep
+  - Glob
+skills:
+  - cal-ood
+hooks:
+  PreToolUse:
+    - matcher: Write
+      hooks:
+        - type: command
+          command: "bash -c 'if echo \"$TOOL_INPUT_FILE_PATH\" | grep -qiE \"(Utils|Helper|Service|Manager|Calculator)\\.\"; then echo \"OOD VIOLATION: File name matches red-flag pattern. Pull this logic onto the domain object instead. See cal/OOD.md.\"; fi; exit 0'"
+    - matcher: Edit
+      hooks:
+        - type: command
+          command: "bash -c 'if echo \"$TOOL_INPUT_FILE_PATH\" | grep -qiE \"(Utils|Helper|Service|Manager|Calculator)\\.\"; then echo \"OOD VIOLATION: File name matches red-flag pattern. Pull this logic onto the domain object instead. See cal/OOD.md.\"; fi; exit 0'"
 ---
 
 You are the implementation agent.

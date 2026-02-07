@@ -1,0 +1,116 @@
+{
+  "name": "cal-plugin-restructure",
+  "version": "1.0",
+  "status": "pending",
+  "created": "2026-02-07",
+  "summary": "Restructure Cal from skills-only to three-layer architecture: commands for /cal:XXX invocations, skills for agent reference material, agents with full configuration",
+  "decisions": [
+    {
+      "topic": "execution-model",
+      "choice": "mixed",
+      "detail": "Coordinator commands (next, meet) use disable-model-invocation. Simple commands (save, onboard, analyze) execute directly."
+    },
+    {
+      "topic": "model-assignments",
+      "choice": "coder=sonnet, reviewer+architect=opus",
+      "detail": "Coder is fast/cheap for implementation. Reviewer and Architect use Opus for depth."
+    },
+    {
+      "topic": "analyze-execution",
+      "choice": "inline",
+      "detail": "Cal facilitates analysis itself. No dedicated analyst agent."
+    },
+    {
+      "topic": "agent-auto-trigger",
+      "choice": "yes",
+      "detail": "Add <example> tags so natural language triggers agents automatically."
+    },
+    {
+      "topic": "ood-skill",
+      "choice": "create",
+      "detail": "Create skills/cal-ood/SKILL.md for agents to reference declaratively via skills: [cal-ood]."
+    },
+    {
+      "topic": "ood-hook",
+      "choice": "warn-and-continue",
+      "detail": "PreToolUse hook on coder warns on red-flag file patterns but does not block. Agent self-corrects."
+    },
+    {
+      "topic": "manifest",
+      "choice": "explicit-paths",
+      "detail": "List command file paths and skill declarations in claude-code.json."
+    },
+    {
+      "topic": "ood-layers",
+      "choice": "keep-all-three",
+      "detail": "Rule (main convo) + Skill (agent context) + Hook (tool guard). Consistent, not DRY."
+    },
+    {
+      "topic": "analyze-arguments",
+      "choice": "single-positional",
+      "detail": "Single positional argument parsed as free text: /cal:analyze inside-out auth-system."
+    },
+    {
+      "topic": "meet-setup",
+      "choice": "pure-markdown",
+      "detail": "No external scripts. All setup logic in command markdown body."
+    },
+    {
+      "topic": "next-dispatch",
+      "choice": "dynamic",
+      "detail": "Cal reads state and dispatches agents dynamically. No <Task> template."
+    }
+  ],
+  "user_stories": [
+    {
+      "id": "US-1",
+      "title": "Convert skills to commands",
+      "phase": 1,
+      "acceptance": "All five commands appear in / picker as /cal:XXX with correct descriptions"
+    },
+    {
+      "id": "US-2",
+      "title": "Create OOD skill",
+      "phase": 2,
+      "acceptance": "skills/cal-ood/SKILL.md exists. Agent definitions reference it."
+    },
+    {
+      "id": "US-3",
+      "title": "Enhance agent definitions",
+      "phase": 2,
+      "acceptance": "All agents have model, tools, skills, <example> tags. Coder has OOD hook."
+    },
+    {
+      "id": "US-4",
+      "title": "Update manifest",
+      "phase": 1,
+      "acceptance": "claude-code.json lists commands and skills. Version 3.1.0."
+    },
+    {
+      "id": "US-5",
+      "title": "Clean up old skills",
+      "phase": 3,
+      "acceptance": "Old skill directories deleted. Only cal-ood remains."
+    }
+  ],
+  "phases": [
+    {
+      "id": 1,
+      "name": "Commands + Manifest",
+      "stories": ["US-1", "US-4"],
+      "status": "pending"
+    },
+    {
+      "id": 2,
+      "name": "Agents + OOD Skill",
+      "stories": ["US-2", "US-3"],
+      "status": "pending"
+    },
+    {
+      "id": 3,
+      "name": "Cleanup",
+      "stories": ["US-5"],
+      "status": "pending"
+    }
+  ]
+}

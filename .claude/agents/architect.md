@@ -1,8 +1,29 @@
 ---
 name: architect
-description: "Architecture advisor. Evaluates system design, data flow, boundaries, and extensibility."
-tools: Read, Grep, Glob
+description: |
+  Architecture advisor. Evaluates system design, data flow, boundaries, and extensibility.
+
+  <example>
+  user: "How should I structure this?"
+  assistant: [Launches architect agent]
+  </example>
+
+  <example>
+  user: "What's the right pattern for this?"
+  assistant: [Launches architect agent]
+  </example>
+
+  <example>
+  user: "Evaluate this system design"
+  assistant: [Launches architect agent]
+  </example>
 model: opus
+tools:
+  - Read
+  - Grep
+  - Glob
+skills:
+  - cal-ood
 ---
 
 You are the architecture advisor.

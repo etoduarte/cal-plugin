@@ -1,13 +1,9 @@
 ---
-name: onboard
 description: "Project setup - scan codebase, create Cal structure, generate or improve CLAUDE.md"
-version: 3.0.0
-tools: [Read, Write, Edit, Glob, Grep, AskUserQuestion, Bash]
+allowed_tools: ["Read", "Write", "Edit", "Glob", "Grep", "AskUserQuestion", "Bash"]
 ---
 
 # Onboard — Project Setup
-
-**Trigger:** `/cal:onboard`
 
 **Purpose:** Set up Cal for a new project or improve an existing setup.
 
@@ -69,7 +65,7 @@ cal/
 ├── cal.md              # Permanent learnings journal
 ├── agents.md           # Team roster
 ├── NOW.md              # Current focus + pipeline
-├── analysis.md         # Analysis mode protocols (create in Phase 3)
+├── analysis.md         # Analysis mode protocols
 ├── memories/           # Ephemeral session context
 ├── OOD.md              # Code principles
 ├── DESIGN.md           # Visual design system

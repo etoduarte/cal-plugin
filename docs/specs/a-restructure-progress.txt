@@ -1,0 +1,10 @@
+Phase 1: Commands + Manifest [DONE]
+  US-1: Convert skills to commands [DONE]
+  US-4: Update manifest [DONE]
+
+Phase 2: Agents + OOD Skill [DONE]
+  US-2: Create OOD skill [DONE]
+  US-3: Enhance agent definitions [DONE]
+
+Phase 3: Cleanup [DONE]
+  US-5: Clean up old skills [DONE]

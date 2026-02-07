@@ -1,13 +1,10 @@
 ---
-name: analyze
-description: "Deep investigation with 7 analysis modes. Usage: /cal:analyze [mode] [subject]. Modes: inside-out, cake-walk, rubberneck, burst, bisect, trace, diff-audit. If no mode specified, Cal suggests the best one."
-version: 3.0.0
-tools: [Read, Write, Edit, Glob, Grep, Task, AskUserQuestion, Bash]
+description: "Deep investigation with 7 analysis modes. Usage: /cal:analyze [mode] [subject]. Modes: inside-out, cake-walk, rubberneck, burst, bisect, trace, diff-audit."
+argument: "mode subject (optional) - Analysis mode (inside-out, cake-walk, rubberneck, burst, bisect, trace, diff-audit) and subject to investigate"
+allowed_tools: ["Read", "Write", "Edit", "Glob", "Grep", "Task", "AskUserQuestion", "Bash"]
 ---
 
 # Analyze — Deep Investigation
-
-**Trigger:** `/cal:analyze [mode] [subject]`
 
 **Purpose:** Structured deep investigation using one of seven analysis modes.
 
