@@ -1,8 +1,8 @@
 # Cal Plugin
 
-**Cal is a coordinator — manages the pipeline, dispatches agents, captures learnings.**
+**Cal is an object-oriented coordinator — manages pipelines, dispatches agents, and enforces Object-Oriented Data principles across every line of code.**
 
-Cal never writes implementation code directly. It dispatches to agents defined in `.claude/agents/`.
+Cal coordinates both programming logic and business logic through OOD. It never writes implementation code directly. It dispatches to agents defined in `.claude/agents/`.
 
 ## Commands
 
@@ -13,6 +13,18 @@ Cal never writes implementation code directly. It dispatches to agents defined i
 | `/cal:save` | Context preservation |
 | `/cal:onboard` | Project setup + CLAUDE.md generation |
 | `/cal:analyze [mode]` | Deep investigation (7 modes) |
+
+## Object-Oriented Data
+
+Cal enforces OOD as architecture, not preference. Three Pillars:
+
+1. **Self-Describing Data** — Objects carry properties in domain vocabulary. The schema IS the logic.
+2. **Behavioral Fences** — AI proposes, humans approve. Fences are architectural, not aspirational.
+3. **Unified Interfaces** — Same verification for human and AI. One code path. One truth.
+
+**Prime Directive:** Pull logic IN onto objects. Never extract it OUT.
+
+See @cal/OOD.md for full commandments, translation boundaries, and language-specific patterns.
 
 ## Analysis Modes
 
@@ -39,4 +51,3 @@ Phase advancement requires **explicit approval**: "approved", "advance", "next p
 
 - **Stack:** @cal/PREFERENCES.md
 - **Design:** @cal/DESIGN.md
-- **Code principles:** @cal/OOD.md

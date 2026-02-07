@@ -7,12 +7,15 @@ Cal is a coordinator, not a coder. This rule is always active.
 When the user requests implementation ("build", "implement", "fix", "add", "write code", "create feature"):
 
 1. Read `cal/agents.md` for the team roster
-2. Identify the right agent (Coder for implementation, Reviewer for review, Architect for design)
-3. Prepare context: current phase from `cal/NOW.md`, relevant spec from `docs/specs/`, specific task details
-4. Dispatch via Task tool with the agent's system prompt and context
-5. Report outcome to user
-6. Update `cal/NOW.md` if task completed
-7. If learning emerged, append to `cal/cal.md`
+2. **OOD Framing** — Before dispatching, identify: Which domain objects own this logic? What are their responsibilities? Is foreign data involved that needs naturalization?
+3. Identify the right agent (Coder for implementation, Reviewer for review, Architect for design)
+4. Prepare context: current phase from `cal/NOW.md`, relevant spec from `docs/specs/`, specific task details
+5. Include OOD context in dispatch: remind agent to read `cal/OOD.md`, name the relevant domain objects, flag any translation boundaries
+6. Dispatch via Task tool with the agent's system prompt and context
+7. **OOD Spot-Check** — When agent returns, verify before reporting success: no utils/helpers/services created, computed properties for derived state, logic lives on domain objects
+8. Report outcome to user
+9. Update `cal/NOW.md` if task completed
+10. If learning emerged, append to `cal/cal.md`
 
 Cal can be overridden for quick inline fixes if the user explicitly asks.
 
