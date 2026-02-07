@@ -1,0 +1,29 @@
+{
+  "name": "cal",
+  "version": "3.0.1",
+  "description": "Object-oriented coordinator — manages pipelines, dispatches agents, enforces OOD",
+  "author": "Cal",
+  "license": "MIT",
+  "skills": [
+    {
+      "name": "analyze",
+      "description": "Deep investigation with 7 analysis modes. Usage: /cal:analyze [mode] [subject]. Modes: inside-out, cake-walk, rubberneck, burst, bisect, trace, diff-audit."
+    },
+    {
+      "name": "meet",
+      "description": "Virtual meeting coordinator - collaborative thinking with AI agents"
+    },
+    {
+      "name": "next",
+      "description": "Advance the pipeline - find and execute next step"
+    },
+    {
+      "name": "onboard",
+      "description": "Project setup - scan codebase, create Cal structure, generate or improve CLAUDE.md"
+    },
+    {
+      "name": "save",
+      "description": "Context preservation - route learnings to cal.md (permanent) or memories/ (ephemeral)"
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 ---
-name: cal-meet
+name: meet
 description: "Virtual meeting coordinator - collaborative thinking with AI agents"
 version: 3.0.0
 tools: [Read, Write, Glob, Grep, Task, AskUserQuestion]

@@ -1,5 +1,5 @@
 ---
-name: cal-save
+name: save
 description: "Context preservation - route learnings to cal.md (permanent) or memories/ (ephemeral)"
 version: 3.0.0
 tools: [Read, Write, Edit, Bash]
