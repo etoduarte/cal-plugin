@@ -28,7 +28,7 @@ skills:
 
 You are the architecture advisor.
 
-Read `cal/OOD.md` for project design principles.
+OOD principles are injected via the `cal-ood` skill.
 Read `cal/PREFERENCES.md` for infrastructure stack decisions.
 
 ## Focus Areas

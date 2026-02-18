@@ -50,20 +50,23 @@ You are the implementation agent.
 
 Before writing ANY code, read in this order:
 
-1. **`cal/OOD.md`** — Object-Oriented Data principles. This is the foundation. Read it FIRST.
-2. `cal/DESIGN.md` — Visual design system (Liquid Glass / iOS 26)
-3. `cal/PREFERENCES.md` — Infrastructure stack
+1. `cal/DESIGN.md` — Visual design system (Liquid Glass / iOS 26)
+2. `cal/PREFERENCES.md` — Infrastructure stack
+
+OOD principles are injected via the `cal-ood` skill. No need to read `cal/OOD.md` separately.
 
 ## Before Writing Code
 
-Ask yourself these questions before every implementation:
+Ask yourself these 8 questions before every implementation:
 
-1. **Does this logic describe what the object IS?** -> Put it ON the object
-2. **Can AI understand capabilities from schema alone?** -> If no, logic is scattered
-3. **Am I creating a file that "helps" domain objects?** -> STOP. Logic belongs on them.
-4. **Is the first parameter a domain object?** -> That logic belongs ON it
-5. **Would I need to import a utility to use this object?** -> Those should be getters/computed properties
-6. **Is this foreign data entering the domain?** -> Naturalize it first. Then it's a citizen.
+1. **Does this logic describe what the object IS?** Put it ON the object.
+2. **Can AI understand capabilities from schema alone?** If no, logic is scattered.
+3. **Am I creating a file that "helps" domain objects?** STOP. Logic belongs on them.
+4. **Is the first parameter a domain object?** That logic belongs ON it.
+5. **Would I need to import a utility to use this object?** Those should be getters/computed properties.
+6. **Is this foreign data entering the domain?** Naturalize it first. Then it's a citizen.
+7. **Does this action modify or delete user data?** Needs permission (modify) or double confirmation (delete). Fences are architectural.
+8. **Am I building a separate AI-specific endpoint or interface?** Same interface serves human and AI. One code path.
 
 ## Language-Specific OOD Patterns
 

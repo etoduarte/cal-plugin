@@ -1,0 +1,122 @@
+{
+  "name": "cal-plugin-improvements-skills-guide",
+  "status": "PENDING",
+  "date": "2026-02-18",
+  "context": "Audit of cal-plugin v3.1.0 against Anthropic skills guide + CLAUDE.md bloat best practices",
+  "user_stories": [
+    {
+      "id": "US-1",
+      "title": "Rewrite skills/cal-ood/SKILL.md",
+      "description": "Bring the cal-ood skill into full compliance with the skills guide. Rewrite frontmatter (add trigger phrases, compatibility, metadata), rewrite body to 8 unified questions + red flags (lean checklist, no code examples), create references/ directory with Swift and TypeScript pattern files.",
+      "files": [
+        "skills/cal-ood/SKILL.md",
+        "skills/cal-ood/references/swift-patterns.md",
+        "skills/cal-ood/references/typescript-patterns.md",
+        "claude-code.json"
+      ],
+      "acceptance_criteria": [
+        "SKILL.md frontmatter has name, description with trigger phrases, license, compatibility, metadata",
+        "SKILL.md body contains exactly 8 questions, red-flag patterns, translation boundary summary, pointer to cal/OOD.md",
+        "SKILL.md body under 60 lines",
+        "references/swift-patterns.md exists with Swift OOD code examples",
+        "references/typescript-patterns.md exists with TypeScript OOD code examples",
+        "claude-code.json skill description matches SKILL.md description",
+        "No content duplication between SKILL.md and cal/OOD.md"
+      ]
+    },
+    {
+      "id": "US-2",
+      "title": "Create /cal:check command",
+      "description": "Add a retroactive quality check command that dispatches the Reviewer agent on recent changes. Supports optional scope argument: ood, security, design, spec, or a file path. Defaults to reviewing all changes.",
+      "files": [
+        "commands/check.md",
+        "claude-code.json"
+      ],
+      "acceptance_criteria": [
+        "commands/check.md exists with frontmatter (description, argument, disable-model-invocation, allowed_tools)",
+        "Command dispatches Reviewer agent via Task tool",
+        "Scope argument works: no arg = all, ood/security/design/spec = focused, file path = targeted",
+        "claude-code.json includes the new command",
+        "Reviewer returns PASS / PASS WITH NOTES / FAIL verdict with file:line references"
+      ]
+    },
+    {
+      "id": "US-3",
+      "title": "Trim Cal's CLAUDE.md",
+      "description": "Apply the litmus test to every line: 'Would removing this cause Claude to make mistakes?' Cut to essential decision-lines. Target under 30 lines.",
+      "files": [
+        "CLAUDE.md"
+      ],
+      "acceptance_criteria": [
+        "CLAUDE.md under 30 lines",
+        "Every remaining line passes litmus test",
+        "Commands table present including /cal:check",
+        "Approval Gates section present",
+        "Brain file pointers present",
+        "No redundant OOD content",
+        "No discoverable pointers"
+      ]
+    },
+    {
+      "id": "US-4",
+      "title": "Update coordinator.md rule",
+      "description": "Add lightweight Workflow Tools section with hints for Lisa, Ralph, /cal:analyze, and /cal:check. Suggestions only, not auto-dispatches.",
+      "files": [
+        ".claude/rules/coordinator.md"
+      ],
+      "acceptance_criteria": [
+        "coordinator.md has new Workflow Tools section",
+        "Section contains 4 lightweight hints",
+        "Hints are suggestions not auto-dispatches",
+        "Existing dispatch behavior unchanged"
+      ]
+    },
+    {
+      "id": "US-5",
+      "title": "Update onboard.md command",
+      "description": "Add lean CLAUDE.md generation principles (litmus test inline), and offer audit of existing CLAUDE.md files with line-by-line assessment.",
+      "files": [
+        "commands/onboard.md"
+      ],
+      "acceptance_criteria": [
+        "commands/onboard.md contains CLAUDE.md writing principles inline",
+        "Litmus test explicit: 'Would removing this cause Claude to make mistakes?'",
+        "Include/exclude lists with concrete examples",
+        "Existing CLAUDE.md audit flow documented",
+        "New projects get lean CLAUDE.md generation"
+      ]
+    }
+  ],
+  "phases": [
+    {
+      "id": 1,
+      "name": "Skill + CLAUDE.md",
+      "stories": ["US-1", "US-3"],
+      "files": [
+        "skills/cal-ood/SKILL.md",
+        "skills/cal-ood/references/swift-patterns.md",
+        "skills/cal-ood/references/typescript-patterns.md",
+        "CLAUDE.md",
+        "claude-code.json"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Commands + Coordinator",
+      "stories": ["US-2", "US-4", "US-5"],
+      "files": [
+        "commands/check.md",
+        ".claude/rules/coordinator.md",
+        "commands/onboard.md",
+        "claude-code.json"
+      ]
+    }
+  ],
+  "out_of_scope": [
+    "Converting commands to portable skills",
+    "Changing Ralph Loop or Lisa plugin",
+    "Modifying agent definitions",
+    "Changing cal/OOD.md content",
+    "Changing .claude/rules/ood.md"
+  ]
+}

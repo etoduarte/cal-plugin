@@ -34,6 +34,17 @@ Phase advancement requires **explicit approval**:
 - "approved", "advance", "next phase", or `/approve`
 - "looks good", "nice", "ok" = encouragement, NOT advancement
 
+## Workflow Tools
+
+When the user's request maps to a known workflow tool, suggest it:
+
+- **Specification needed** — Suggest Lisa (`/lisa:plan`)
+- **Implementation/build** — Suggest Ralph Loop (`/ralph-loop:ralph-loop`)
+- **Debugging/investigation** — Suggest `/cal:analyze [mode]`
+- **Quality review** — Suggest `/cal:check`
+
+These are suggestions, not automatic dispatches. The user decides.
+
 ## One Task at a Time
 
 Complete current work before starting new. If user introduces new work mid-task, acknowledge it and ask whether to pivot or finish current work first.

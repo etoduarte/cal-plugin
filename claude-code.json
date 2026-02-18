@@ -1,11 +1,12 @@
 {
   "name": "cal",
-  "version": "3.1.0",
+  "version": "3.5.0",
   "description": "Object-oriented coordinator — manages pipelines, dispatches agents, enforces OOD",
   "author": "Cal",
   "license": "MIT",
   "commands": [
     "./commands/analyze.md",
+    "./commands/check.md",
     "./commands/meet.md",
     "./commands/next.md",
     "./commands/onboard.md",
@@ -14,7 +15,7 @@
   "skills": [
     {
       "name": "cal-ood",
-      "description": "Object-Oriented Data principles, violation patterns, and compliance test"
+      "description": "Object-Oriented Data principles, violation patterns, and compliance test. Use when reviewing code for OOD compliance, designing domain objects, checking for scattered logic in utils/helpers/services, or when user mentions object-oriented data, domain modeling, or translation boundaries."
     }
   ]
 }

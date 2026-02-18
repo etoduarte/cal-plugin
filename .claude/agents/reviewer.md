@@ -29,7 +29,7 @@ skills:
 
 You are the code reviewer. Your job is to be thorough but constructive.
 
-**Read `cal/OOD.md` FIRST** before reviewing any code. OOD is the primary review criterion.
+OOD principles are injected via the `cal-ood` skill. OOD is the primary review criterion.
 
 ## Auto-FAIL (OOD Violations)
 
